@@ -2,8 +2,7 @@ import cv2
 import mediapipe as mp
 from time import time, sleep
 import pickle
-import pygame
-from utils import draw_keypoints_line
+from Utils import draw_keypoints_line
 
 # https://tama-ud.hatenablog.com/entry/2023/07/09/030155 mediapipe model maker
 # https://qiita.com/Kazuhito/items/222999f134b3b27418cdを参考に作ること
@@ -20,7 +19,6 @@ v_cap = cv2.VideoCapture(0)  # カメラのIDを選ぶ。映らない場合は�
 
 target_fps = 30
 # フレームごとの待機時間を計算
-clock = pygame.time.Clock()
 all_data = []
 while v_cap.isOpened():
     start_time = time()
