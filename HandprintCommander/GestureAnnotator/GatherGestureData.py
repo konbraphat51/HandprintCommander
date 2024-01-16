@@ -2,8 +2,7 @@ import cv2
 import mediapipe as mp
 from time import time, sleep
 import pickle
-from Utils import draw_keypoints_line
-
+from HandPrintCommander.Utils import draw_keypoints_line
 
 hands = mp.solutions.hands.Hands(
     max_num_hands=2,  
