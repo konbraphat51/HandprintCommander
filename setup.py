@@ -25,15 +25,10 @@ setup(
     test_suite="tests",
     python_requires=">=3.7",
     include_package_data=True,
-    install_requires=[
-    ],
+    install_requires=[],
     license="Boost Software License (BSL1.0)",
     zip_safe=False,
-    keywords=[
-        "Unity",
-        "TCP",
-        "C#"
-    ],
+    keywords=["Unity", "TCP", "C#"],
     classifiers=[
         "Development Status :: 1 - Planning",
         "Programming Language :: Python :: 3",
