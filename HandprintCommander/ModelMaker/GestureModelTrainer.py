@@ -8,8 +8,6 @@ from tensorflow import keras
 from tensorflow.keras import models, layers, optimizers
 from sklearn.model_selection import train_test_split
 
-# https://qiita.com/yohachi/items/434f0da356161e82c242にしたがってモデルを作りたい
-
 model = models.Sequential(
     [
         layers.Dense(units=40, activation="relu", input_shape=(122,)),
@@ -25,13 +23,17 @@ model.compile(
     optimizer=optimizer,
     metrics=["accuracy"],
 )
-if __name__ == "__main__":
+
+def train():
     data = pickle.load(open("gesture_data.bin", "rb"))
     processed_data, label = preprocessing_train_data(data)
     X_train, X_val, y_train, y_val = train_test_split(
-        processed_data, label, test_size=0.2, random_state=42
+        processed_data, label, test_size=0.2, random_state=334
     )
     history = model.fit(
         X_train, y_train, epochs=100, validation_data=(X_val, y_val)
     )
     model.save("model")
+    
+if __name__ == "__main__":
+    train()
