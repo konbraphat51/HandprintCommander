@@ -58,6 +58,50 @@ def _read_hand():
     else:
         return None
 
+def _draw_instrctions(img, current_label: int) -> None:
+    TEXT_COLOR = (255, 0, 0)
+    
+    cv2.putText(
+        img,
+        "Press [space] to register",
+        (10, 30),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.5,
+        TEXT_COLOR,
+        1,
+        cv2.LINE_AA,
+    )
+    cv2.putText(
+        img,
+        "Press [r] to cancel",
+        (10, 50),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.5,
+        TEXT_COLOR,
+        1,
+        cv2.LINE_AA,
+    )
+    cv2.putText(
+        img,
+        "Press [i] to change label",
+        (10, 70),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.5,
+        TEXT_COLOR,
+        1,
+        cv2.LINE_AA,
+    )
+    cv2.putText(
+        img,
+        f"Current label: {current_label}",
+        (10, 90),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.5,
+        TEXT_COLOR,
+        1,
+        cv2.LINE_AA,
+    )
+
 label_current = 0
 
 #as long as the camera is open
@@ -79,6 +123,9 @@ while v_cap.isOpened():
         flag_detected = False
     else:
         flag_detected = True
+      
+    # draw instructions
+    _draw_instrctions(img, label_current)
       
     # show image
     cv2.imshow("MediaPipe Hands", img)
