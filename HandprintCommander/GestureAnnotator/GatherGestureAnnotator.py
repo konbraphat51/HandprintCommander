@@ -5,6 +5,9 @@ import pickle
 from HandprintCommander.Utils import draw_keypoints_line
 import os
 
+FPS = 30
+FRAME_INTERVAL = 1.0 / FPS
+
 hands = mp.solutions.hands.Hands(
     max_num_hands=2,
     min_detection_confidence=0.7,
@@ -26,9 +29,6 @@ else:
 
 # camera
 v_cap = cv2.VideoCapture(0)
-
-FPS = 30
-FRAME_INTERVAL = 1.0 / FPS
 
 
 def _read_hand():
