@@ -22,9 +22,6 @@ hands = mp.solutions.hands.Hands(
     min_tracking_confidence=0.4, 
 )
 
-#camera
-v_cap = cv2.VideoCapture(0) 
-
 
 def _infer_gesture(data):
     processed_data = preprocessing_gesture_data([data]).astype(np.float32)
@@ -70,6 +67,9 @@ def _read_hands(img, img_w, img_h):
         return None
 
 def capture(on_detected:callable):
+    #camera
+    v_cap = cv2.VideoCapture(0) 
+
     # as long as the video is not finished
     while v_cap.isOpened():
         start_time = time()
