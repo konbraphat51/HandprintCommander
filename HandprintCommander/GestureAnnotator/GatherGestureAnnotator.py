@@ -53,7 +53,7 @@ def _read_hand():
                 data[hand_class.label] = positions
 
         # if both hands detected...
-        if (("Right" in data) and ("Left" in data)):
+        if ("Right" in data) and ("Left" in data):
             # ... return data
             return data
         # if only one hand detected...
@@ -154,7 +154,7 @@ while v_cap.isOpened():
         break
 
     # if space key is pressed
-    elif (key == 32):
+    elif key == 32:
         # ...if both hands detected...
         if flag_detected:
             # ... register data
