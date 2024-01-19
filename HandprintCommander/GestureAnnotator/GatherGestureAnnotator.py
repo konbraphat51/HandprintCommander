@@ -84,8 +84,8 @@ while v_cap.isOpened():
     # key handling
     key = cv2.waitKey(5) & 0xFF
     
-    # if esc key is pressed...
-    if key == 7:
+    # if "q" key is pressed...
+    if key == 113:
         #... save and exit
         with open("gesture_data.bin", "wb") as f:
             pickle.dump(all_data, f)
