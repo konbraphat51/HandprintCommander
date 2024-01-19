@@ -3,7 +3,7 @@ from typing import List
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import models, layers, optimizers
+from keras import models, layers, optimizers
 from sklearn.model_selection import train_test_split
 from HandprintCommander.Utils import preprocessing_train_data
 
