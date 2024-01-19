@@ -32,6 +32,10 @@ else:
 # camera
 v_cap = cv2.VideoCapture(0)
 
+# registering
+flag_registering = False
+registering_count = 0
+registering_timer = 0
 
 def _read_hand():
     results = hands.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
@@ -112,9 +116,38 @@ def _draw_instrctions(img, current_label: int) -> None:
         1,
         cv2.LINE_AA,
     )
-
-
+    
 label_current = 0
+previous_index = 0
+def _handle_registration(data_hand, flag_detected: bool, time_passed: float):
+    global flag_registering, registering_count, registering_timer, label_current, all_data, previous_index
+    
+    if not flag_detected:
+        return
+    
+    #advance timer
+    registering_timer -= time_passed
+    
+    # if timer is up...
+    if registering_timer <= 0:
+        # ... register
+        data_hand["Label"] = label_current
+        all_data.append(data_hand)
+        print(f"Registered: {len(all_data)} as label {label_current}")
+        
+        # advance to next iteration
+        registering_count += 1
+        if registering_count >= REGISTER_N:
+            #finishing
+            flag_registering = False
+            registering_count = 0
+            previous_index = len(all_data)-1
+            print("Finished registering")
+        else:
+            #to next capture
+            registering_timer = REGISTER_INTERVAL
+
+time_delta = FRAME_INTERVAL
 
 # as long as the camera is open
 while v_cap.isOpened():
@@ -157,14 +190,10 @@ while v_cap.isOpened():
 
     # if space key is pressed
     elif key == 32:
-        # ...if both hands detected...
-        if flag_detected:
-            # ... register data
-            data_hand["Label"] = label_current
-            all_data.append(data_hand)
-            print(f"Registered: {len(all_data)} as label {label_current}")
-        else:
-            print("Both hands need to be detected!")
+        # ... start registering
+        flag_registering = True
+        registering_timer = 3 # seconds
+        print("Starting registration in 3 seconds...")
 
     # if "r" key is pressed...
     elif key == 114:
@@ -181,10 +210,15 @@ while v_cap.isOpened():
             print(f"Label changed to {label_current}")
         except:
             print("invalid integer!")
+            
+    # handle registration
+    if flag_registering:
+        _handle_registration(data_hand, flag_detected, time_delta)
 
     # control FPS
     elapsed_time = time() - start_time
     sleep_time = max(FRAME_INTERVAL - elapsed_time, 0)
+    time_delta = max(elapsed_time, FRAME_INTERVAL)
     sleep(sleep_time)
 
 v_cap.release()
