@@ -145,8 +145,8 @@ while v_cap.isOpened():
 
         break
 
-    # if space key is pressed...
-    elif key == 32:
+    # if space key is pressed AND both hands detected...
+    elif ((key == 32) and flag_detected):
         # ... register data
         data_hand["Label"] = label_current
         all_data.append(data_hand)
