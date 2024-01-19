@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 
 gesture_data.bin
-
 model/**
+model.tflite
