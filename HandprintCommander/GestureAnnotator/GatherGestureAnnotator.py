@@ -198,8 +198,7 @@ while v_cap.isOpened():
     # if "r" key is pressed...
     elif key == 114:
         # ... cancel the previous registration
-        if len(all_data) > 0:
-            all_data.pop()
+        all_data = all_data[:previous_index+1]
         print("Canceled")
 
     # if "i" key is pressed...
