@@ -47,11 +47,14 @@ def train():
     # one-hot encoding
     labels_onehot = _onehot_encoding(label)
     
+    #split
     X_train, X_val, y_train, y_val = train_test_split(
         processed_data, labels_onehot, test_size=0.2, random_state=334
     )
     
+    #make model
     model = _arrange_model(labels_onehot.shape[1])
+    print(model.summary())
 
     # train
     history = model.fit(
@@ -63,4 +66,7 @@ def train():
 
 
 if __name__ == "__main__":
-    train()
+    try:
+        train()
+    except Exception as e:
+        print(e)
