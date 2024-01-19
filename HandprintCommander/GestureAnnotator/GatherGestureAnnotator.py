@@ -7,6 +7,8 @@ import os
 
 FPS = 30
 FRAME_INTERVAL = 1.0 / FPS
+REGISTER_INTERVAL = 0.8 # seconds
+REGISTER_N = 10
 
 hands = mp.solutions.hands.Hands(
     max_num_hands=2,
