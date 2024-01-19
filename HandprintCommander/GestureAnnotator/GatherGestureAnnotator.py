@@ -29,21 +29,10 @@ FPS = 30
 FRAME_INTERVAL = 1.0 / FPS
 
 
-#as long as the camera is open
-while v_cap.isOpened():
-    start_time = time()
-    
-    success, img = v_cap.read()
-    if not success:
-        continue
-    
-    img = cv2.flip(img, 1)
-    
-    #get size
-    img_h, img_w, _ = img.shape 
-    
-    # read hand landmarks
+def _read_hand():
     results = hands.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    
+    # if hands detected
     if results.multi_hand_landmarks:
         draw_keypoints_line(
             results,
@@ -60,6 +49,32 @@ while v_cap.isOpened():
                     lm_pos = (int(lm.x * img_w), int(lm.y * img_h))
                     positions[idx] = lm_pos
                 data[hand_class.label] = positions
+                
+        return data
+
+    # if no hands detected
+    else:
+        return None
+
+#as long as the camera is open
+while v_cap.isOpened():
+    start_time = time()
+    
+    success, img = v_cap.read()
+    if not success:
+        continue
+    
+    img = cv2.flip(img, 1)
+    
+    #get size
+    img_h, img_w, _ = img.shape 
+    
+    # read hand landmarks
+    data_hand = _read_hand()
+    if data_hand == None:
+        flag_detected = False
+    else:
+        flag_detected = True
       
     # show image
     cv2.imshow("MediaPipe Hands", img)
