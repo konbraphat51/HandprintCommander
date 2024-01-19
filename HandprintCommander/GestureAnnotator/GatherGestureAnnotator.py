@@ -7,13 +7,13 @@ import os
 
 FPS = 30
 FRAME_INTERVAL = 1.0 / FPS
-REGISTER_INTERVAL = 0.8 # seconds
-REGISTER_N = 10
+REGISTER_INTERVAL = 0.5 # seconds
+REGISTER_N = 30
 
 hands = mp.solutions.hands.Hands(
     max_num_hands=2,
-    min_detection_confidence=0.7,
-    min_tracking_confidence=0.7,
+    min_detection_confidence=0.4,
+    min_tracking_confidence=0.4,
 )
 
 # if no data file...
