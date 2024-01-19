@@ -52,7 +52,15 @@ def _read_hand():
                     positions[idx] = lm_pos
                 data[hand_class.label] = positions
 
-        return data
+        # if both hands detected...
+        if (("Right" in data) and ("Left" in data)):
+            # ... return data
+            return data
+        # if only one hand detected...
+        else:
+            # ... return None
+            # showing only when both hands are detected
+            return None
 
     # if no hands detected
     else:
