@@ -56,6 +56,8 @@ def _read_hand():
     else:
         return None
 
+label_current = 0
+
 #as long as the camera is open
 while v_cap.isOpened():
     start_time = time()
@@ -81,20 +83,39 @@ while v_cap.isOpened():
     
     # key handling
     key = cv2.waitKey(5) & 0xFF
-    if key == 27:
+    
+    # if esc key is pressed...
+    if key == 7:
+        #... save and exit
         with open("gesture_data.bin", "wb") as f:
             pickle.dump(all_data, f)
+            
+        print("Saved")
+        
         break
-    elif key == ord("1"):
-        if len(data.keys()) == 2:
-            data["Label"] = 1
-            all_data.append(data)
-            print(len(all_data))
-    elif key == ord("0"):
-        if len(data.keys()) == 2:
-            data["Label"] = 0
-            all_data.append(data)
-            print(len(all_data))
+    
+    # if space key is pressed...
+    elif key == 32:
+        #... register data
+        data_hand["Label"] = label_current
+        all_data.append(data_hand)
+        print(f"Registered: {len(all_data)}")
+        
+    # if "r" key is pressed...
+    elif key == 114:
+        #... cancel the previous registration
+        if len(all_data) > 0:
+            all_data.pop()
+        print("Canceled")
+        
+    # if "i" key is pressed...
+    elif key == 105:
+        #... change label
+        try:
+            label_current = int(input("new label number (integer) >> "))
+            print(f"Label changed to {label_current}")
+        except:
+            print("invalid integer!")
             
     # control FPS
     elapsed_time = time() - start_time
