@@ -23,7 +23,7 @@ hands = mp.solutions.hands.Hands(
 )
 
 
-def _infer_gesture(data):
+def _infer_gesture(data) -> int:
     processed_data = preprocessing_gesture_data([data]).astype(np.float32)
     interpreter.set_tensor(input_details[0]["index"], processed_data)
     interpreter.invoke()
@@ -34,7 +34,7 @@ def _infer_gesture(data):
     # find the class larger than threshold
     output_data = np.array(output_data[0])
     output_data = np.where(output_data > INFERING_THRESHOLD)
-    return output_data
+    return output_data[0]
 
 def _read_hands(img, img_w, img_h):
     results = hands.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
