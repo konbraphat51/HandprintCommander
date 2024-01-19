@@ -47,8 +47,6 @@ def train():
     # one-hot encoding
     labels_onehot = _onehot_encoding(label)
     
-    print("a")
-    
     X_train, X_val, y_train, y_val = train_test_split(
         processed_data, labels_onehot, test_size=0.2, random_state=334
     )
