@@ -3,22 +3,19 @@ from utils import preprocessing_gesture_data, draw_keypoints_line
 import numpy as np
 import cv2
 import mediapipe as mp
-import pygame
 
-pygame.mixer.init()
-pygame.mixer.music.load("assets/domain_expansion.wav")
-# TFLiteモデルの読み込み
+FPS = 30
+
+# initialize TFLite model
 interpreter = tf.lite.Interpreter(model_path="model.tflite")
-# メモリ確保。これはモデル読み込み直後に必須
 interpreter.allocate_tensors()
-# 学習モデルの入力層・出力層のプロパティをGet.
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
 hands = mp.solutions.hands.Hands(
     max_num_hands=2,  # 最大検出数
-    min_detection_confidence=0.7,  # 検出信頼度
-    min_tracking_confidence=0.7,  # 追跡信頼度
+    min_detection_confidence=0.4,  # 検出信頼度
+    min_tracking_confidence=0.4,  # 追跡信頼度
 )
 
 
@@ -33,12 +30,6 @@ def infer_gesture(data):
     output_data = np.array(output_data[0])
     output_data = np.where(output_data > 0.9)
     return output_data
-
-
-v_cap = cv2.VideoCapture(0)  # カメラのIDを選ぶ。映らない場合は番号を変える。
-movie_cap = cv2.VideoCapture("assets/domain_expansion.mp4")
-target_fps = 30
-# フレームごとの待機時間を計算
 
 domain_expansion: bool = False  # 領域展開しているか否かを判別する変数
 clock = pygame.time.Clock()
