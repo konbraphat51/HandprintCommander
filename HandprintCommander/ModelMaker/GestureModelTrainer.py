@@ -25,14 +25,26 @@ model.compile(
 )
 
 def train():
+    #import data
     data = pickle.load(open("gesture_data.bin", "rb"))
+    
+    #preprocessing
     processed_data, label = preprocessing_train_data(data)
     X_train, X_val, y_train, y_val = train_test_split(
         processed_data, label, test_size=0.2, random_state=334
     )
+    
+    #train
     history = model.fit(
         X_train, y_train, epochs=100, validation_data=(X_val, y_val)
     )
+    
+    #evaluate
+    score = model.evaluate(X_val, y_val, verbose=0)
+    print("Test loss:", score[0])
+    print("Test accuracy:", score[1])
+    
+    #save
     model.save("model")
     
 if __name__ == "__main__":
