@@ -11,7 +11,7 @@ from HandprintCommander.Utils import preprocessing_train_data
 def _arrange_model(classes_n):
     model = models.Sequential(
         [
-            layers.Dense(units=40, activation="relu", input_shape=(122,)),
+            layers.Dense(units=40, activation="relu", input_dim=122),
             layers.Dense(units=20, activation="relu"),
             layers.Dense(units=classes_n, activation="softmax"),
         ]
@@ -20,7 +20,7 @@ def _arrange_model(classes_n):
     optimizer = optimizers.Adam(lr=0.001)
 
     model.compile(
-        loss="sparse_categorical_crossentropy",
+        loss="categorical_crossentropy",
         optimizer=optimizer,
         metrics=["categorical_accuracy"],
     )
