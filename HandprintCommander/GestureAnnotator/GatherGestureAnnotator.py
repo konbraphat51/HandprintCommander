@@ -3,6 +3,7 @@ import mediapipe as mp
 from time import time, sleep
 import pickle
 from HandprintCommander.Utils import draw_keypoints_line
+import os
 
 hands = mp.solutions.hands.Hands(
     max_num_hands=2,  
@@ -10,13 +11,23 @@ hands = mp.solutions.hands.Hands(
     min_tracking_confidence=0.7,
 )
 
+#if no data file...
+if not os.path.exists("gesture_data.bin"):
+    #... create new list
+    all_data = []
+    
+#if data file exists...
+else:
+    #... load data and append to it
+    with open("gesture_data.bin", "rb") as f:
+        all_data = pickle.load(f)
+
 #camera
 v_cap = cv2.VideoCapture(0)
 
 FPS = 30
 FRAME_INTERVAL = 1.0 / FPS
 
-all_data = []
 
 #as long as the camera is open
 while v_cap.isOpened():
