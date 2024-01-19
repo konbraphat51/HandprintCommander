@@ -70,12 +70,12 @@ while v_cap.isOpened():
         with open("gesture_data.bin", "wb") as f:
             pickle.dump(all_data, f)
         break
-    if key == ord("1"):
+    elif key == ord("1"):
         if len(data.keys()) == 2:
             data["Label"] = 1
             all_data.append(data)
             print(len(all_data))
-    if key == ord("0"):
+    elif key == ord("0"):
         if len(data.keys()) == 2:
             data["Label"] = 0
             all_data.append(data)
