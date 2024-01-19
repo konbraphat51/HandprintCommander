@@ -1,9 +1,10 @@
-import cv2
-import mediapipe as mp
 from time import time, sleep
 import pickle
-from HandprintCommander.Utils import draw_keypoints_line
 import os
+import cv2
+import mediapipe as mp
+from HandprintCommander.Utils import draw_keypoints_line
+
 
 FPS = 30
 FRAME_INTERVAL = 1.0 / FPS
