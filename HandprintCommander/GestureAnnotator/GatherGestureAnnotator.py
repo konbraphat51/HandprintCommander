@@ -21,6 +21,8 @@ else:
     #... load data and append to it
     with open("gesture_data.bin", "rb") as f:
         all_data = pickle.load(f)
+        
+    print("imported existing data")
 
 #camera
 v_cap = cv2.VideoCapture(0)
@@ -49,7 +51,7 @@ def _read_hand():
                     lm_pos = (int(lm.x * img_w), int(lm.y * img_h))
                     positions[idx] = lm_pos
                 data[hand_class.label] = positions
-                
+                 
         return data
 
     # if no hands detected
