@@ -101,7 +101,7 @@ while v_cap.isOpened():
         #... register data
         data_hand["Label"] = label_current
         all_data.append(data_hand)
-        print(f"Registered: {len(all_data)}")
+        print(f"Registered: {len(all_data)} as label {label_current}")
         
     # if "r" key is pressed...
     elif key == 114:
