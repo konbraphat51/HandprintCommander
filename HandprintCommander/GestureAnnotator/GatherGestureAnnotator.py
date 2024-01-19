@@ -63,6 +63,8 @@ while v_cap.isOpened():
       
     # show image
     cv2.imshow("MediaPipe Hands", img)
+    
+    # key handling
     key = cv2.waitKey(5) & 0xFF
     if key == 27:
         with open("gesture_data.bin", "wb") as f:
