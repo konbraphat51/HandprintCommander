@@ -1,5 +1,5 @@
 import tensorflow as tf
-from utils import preprocessing_gesture_data, draw_keypoints_line
+from HandprintCommander.Utils import preprocessing_gesture_data, draw_keypoints_line
 import numpy as np
 import cv2
 import mediapipe as mp
